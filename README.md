@@ -1,9 +1,10 @@
-# template
-Description of package.
+# poll
+Call a callback repeatedly every number of milliseconds until the callback returns true or false.
 
 
 ## API
 
-### `method(arguments)`
+### `poll({ every, until })`
 
-`argument`: argument description
+`every`: number of milliseconds to wait between calls of `until`
+`until`: the callback returns true or false

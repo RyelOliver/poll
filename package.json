@@ -1,14 +1,20 @@
 {
-  "name": "template",
+  "name": "poll",
   "version": "1.0.0",
-  "description": "Description of package.",
-  "main": "index.js",
+  "description": "Call a callback repeatedly every number of milliseconds until the callback returns true or false.",
+  "main": "poll.js",
   "scripts": {
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage"
   },
-  "keywords": [],
+  "keywords": [
+    "javascript",
+    "poll",
+    "callback",
+    "async",
+    "promise"
+  ],
   "author": "Ryel Oliver <rmuchunku@gmail.com> (https://github.com/RyelOliver)",
   "license": "ISC",
   "devDependencies": {
