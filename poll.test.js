@@ -47,4 +47,22 @@ describe('Poll', () => {
         });
         expect(until).toHaveBeenCalledTimes(2);
     });
+
+    it('Should reject if the until function errors', async () => {
+        const actual = poll({
+            every: 100,
+            until: () => { throw Error('Test'); },
+        });
+        await expect(actual).rejects.toEqual(Error('Test'));
+    });
+
+    it('Should reject if the until function takes too long to resolve', async () => {
+        const actual = poll({
+            every: 100,
+            until: () => new Promise(resolve => setTimeout(resolve, 1000)),
+            timeout: 100,
+        });
+        await expect(actual)
+            .rejects.toEqual(Error('Until could not be resolved within the 100ms timeout.'));
+    });
 });

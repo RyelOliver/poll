@@ -1,15 +1,30 @@
-function poll ({ every = 3000, until }) {
+const DEFAULT_EVERY = 3000;
+const DEFAULT_TIMEOUT = 3000;
+
+function poll ({ every = DEFAULT_EVERY, until, timeout = DEFAULT_TIMEOUT }) {
     return new Promise((resolve, reject) => {
         (async function tryUntil () {
-            const attempt = await until();
+            try {
+                let awaiting = true;
+                setTimeout(() => {
+                    if (awaiting)
+                        reject(Error(
+                            `Until could not be resolved within the ${timeout}ms timeout.`
+                        ));
+                }, timeout);
+                const attempt = await until();
+                awaiting = false;
 
-            if (attempt === false)
-                reject(false);
-
-            if (attempt === true)
-                resolve(true);
-
-            setTimeout(tryUntil, every);
+                if (attempt === false) {
+                    reject(false);
+                } else if (attempt === true) {
+                    resolve(true);
+                } else {
+                    setTimeout(tryUntil, every);
+                }
+            } catch (error) {
+                reject(error);
+            }
         })();
     });
 }

@@ -9,3 +9,5 @@ Call a callback repeatedly every number of milliseconds until the callback retur
 `every`: number of milliseconds to wait between calls of `until`
 
 `until`: the callback returns true or false
+
+`timeout`: number of milliseconds to wait for the until callback to resolve
